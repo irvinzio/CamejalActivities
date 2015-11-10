@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="todoApp">
   <head>
     <title>New Sails App</title>
 
@@ -29,12 +29,17 @@
     -->
 
     <!--STYLES-->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
   </head>
 
   <body>
-    <%- body %>
+    <%- partial ("topNavbar.ejs") %>
+    <div class="container">
+      <%- body %>
+    </div>
+    
 
 
 
@@ -89,6 +94,12 @@
 
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="/js/service/TodoService.js"></script>
+    <script src="/js/todoApp.js"></script>
     <!--SCRIPTS END-->
   </body>
 </html>
