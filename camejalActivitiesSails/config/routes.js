@@ -33,10 +33,13 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'funcionarios'
+    view: 'homepage'
   },
     '/funcionarios': {
     view: 'funcionarios'
+  },
+    '/cargos': {
+    view: 'cargos'
   }
 
   /***************************************************************************
