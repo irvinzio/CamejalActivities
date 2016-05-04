@@ -1,0 +1,14 @@
+<div class="col-md-12" ng-repeat="funcionario in vm.funcionarios">
+    <p>
+        <strong>Nombres</strong> <span >{{vm.formData}}</span>
+    </p>
+    <p>
+        <strong>Apellido Materno</strong> <span >{{vm.formData.apellido_paterno}}</span>
+    </p>
+    <p>
+        <strong>Apellido Paterno</strong> <span >{{vm.formData.apellido_materno}}</span>
+    </p>
+    <p>
+        <strong>Cargo</strong> <span >{{vm.formData.cargo_id.tipo}}</span>
+    </p>
+</div>

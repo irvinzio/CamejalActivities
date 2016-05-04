@@ -1,0 +1,31 @@
+
+<div class="panel panel-default" ng-controller="cargosCtrl">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Cargos 
+        <button type="button" class="btn btn-primary text-rigth" data-toggle="modal" data-target=".addModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+    </div>
+
+  <!-- Table -->
+  <table class="table table-striped">
+       	<thead>
+            <tr>
+                <th><a href="" ng-click="vm.order('tipo')" >Cargo</a></th>
+                <th></th>	
+                <th></th>  
+            </tr>
+            <tr >
+                <td><input class="form-control"ng-model="search" type="text" placeholder="Filter by" ></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="cargo in vm.cargos | orderBy:predicate:reverse | filter:search">
+                <td>{{cargo.tipo}}</td>
+                <td><a href="#cargos" ng-click="vm.delete($index,cargo.id)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></a></td>
+                <td><a href="#cargos" ng-click="vm.updateData(cargo)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        </p></span></td>
+            </tr>				
+        </tbody>
+   </table>
+   <div ng-include="'templates/cargos/new.html'"></div> 
+    <div ng-include="'templates/cargos/edit.html'"></div>
+</div>

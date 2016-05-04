@@ -1,0 +1,63 @@
+<form name="myForm">
+      <div class="control-group" ng-class="{error: myForm.name.$invalid && !myForm.name.$pristine}">
+        <input class="form-control" type="text" name="nombre" ng-model="vm.formData.nombre" required placeholder="Nombres">
+        <span ng-show="myForm.name.$error.required && !myForm.name.$pristine" class="help-inline">
+            Required {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="control-group" ng-class="{error: myForm.name.$invalid && !myForm.name.$pristine}">
+        <input class="form-control" type="text" name="tema" ng-model="vm.formData.tema" required placeholder="Tema">
+        <span ng-show="myForm.name.$error.required && !myForm.name.$pristine" class="help-inline">
+            Required {{myForm.name.$pristine}}</span>
+      </div>        
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <input class="form-control" type="text" id="datepicker"name="fecha" ng-model="vm.formData.fecha" required placeholder="Elige una fecha">
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <input class="form-control" type="text" name="autoridad" ng-model="vm.formData.autoridad" required placeholder="Numero de asistentes">
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <select class="form-control" name="institucion" ng-options="institucion as institucion.nombre for institucion in vm.instituciones track by institucion.id"
+                              ng-model="vm.formData.insitucion_id" required>
+                              <option style="display:none" value="">Elige una institucion</option>
+        </select>
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+</form>
+ <script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script><
+
+          <p>
+            <strong>Nombres</strong> <span >{{evento.nombre}}</span>
+        </p>
+        <p>
+            <strong>Tema</strong> <span >{{evento.tema}}</span>
+        </p>
+        <p>
+            <strong>Fecha</strong> <span >{{evento.fecha}}</span>
+        </p>
+        <p>
+            <strong>No. Asistentes</strong> <span >{{evento.numero_asistentes}}</span>
+        </p>
+        <p>
+            <strong>Institucion</strong> <span >{{evento.institucion_id.nombre}}</span>
+        </p>
+        <p>
+            <strong>Funcionario</strong> <span >{{evento.funcionario_id.nombre}}</span>
+        </p>
+        <p>
+            <strong>Participacion</strong> <span >{{evento.Participacion_id.tipo}}</span>
+        </p>
+        <p>
+            <strong>Tipo de evento</strong> <span >{{evento.tipo_evento_id.tipo}}</span>
+        </p>
+        <p>
+            <strong>Ciudad</strong> <span >{{evento.nombre}}</span>
+        </p>

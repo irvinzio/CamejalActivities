@@ -1,0 +1,30 @@
+<form name="myForm">
+      <div class="control-group" ng-class="{error: myForm.name.$invalid && !myForm.name.$pristine}">
+        <input class="form-control" type="text" name="nombre" ng-model="vm.formData.nombre" required placeholder="Nombres">
+        <span ng-show="myForm.name.$error.required && !myForm.name.$pristine" class="help-inline">
+            Required {{myForm.name.$pristine}}</span>
+      </div>        
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <input class="form-control" type="text" id="datepicker"name="fecha" ng-model="vm.formData.fecha" required placeholder="Elige una fecha">
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <input class="form-control" type="text" name="autoridad" ng-model="vm.formData.autoridad" required placeholder="Autoridad">
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <select class="form-control" name="institucion" ng-options="institucion as institucion.nombre for institucion in vm.instituciones track by institucion.id"
+                              ng-model="vm.formData.insitucion_id" required>
+                              <option style="display:none" value="">Elige una institucion</option>
+        </select>
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+</form>
+ <script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>

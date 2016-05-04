@@ -1,0 +1,68 @@
+<!--
+<div class="panel panel-default" ng-controller="funcionariosListCtrl">
+  <!-- Default panel contents 
+  <div class="panel-heading">Funcionarios <span class="glyphicon glyphicon-plus" aria-hidden="true"></div>
+
+  <!-- Table
+  <table class="table-responsive table-striped" style="vertical-align: middle;">
+       	<thead>
+            <tr>
+                <th><a href="" ng-click="order('nombres')" >Nombres <span class="mdi-navigation-unfold-more" ng-class="sortIcon('index')" aria-hidden="true">
+                </a></th>
+                <th><a href="" ng-click="order('apellido_materno')">Apellido Materno<span class="mdi-navigation-unfold-more" ng-class="sortIcon('user_name')" aria-hidden="true">
+                </a></th>
+                <th><a href="" ng-click="order('apellido_materno')">Apellido Paterno<span class="mdi-navigation-unfold-more" ng-class="sortIcon('release_name')" aria-hidden="true">
+                </a></th>
+                <th><a href="" ng-click="order('cargo')">Cargo<span class="mdi-navigation-unfold-more" ng-class="sortIcon('release_level')" aria-hidden="true">
+                </a></th>
+                <th></th>	
+                <th></th>  
+            </tr>
+            <tr >
+                <td><input ng-model="search" type="text" placeholder="Filter by" ></td>
+                <td><input ng-model="search" type="text" placeholder="Filter by" ></td>
+                <td><input ng-model="search" type="text" placeholder="Filter by" ></td>
+                <td><input ng-model="search" type="text" placeholder="Filter by" ></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="funcionario in funcionarios | filter:search">
+                <td>{{funcionario.nombres}}</td>
+                <td>{{funcionario.apellido_materno}}</td>
+                <td>{{funcionario.apellido_paterno}}</td>
+                <td>{{funcionario.cargo_id.tipo}}</td>
+                <td><a ng-click=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                <td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
+            </tr>				
+        </tbody>
+   </table>
+</div>
+-->
+<div class="panel panel-default" ng-controller="funcionariosCtrl">
+  <!-- Default panel contents -->
+    <div class="panel-heading">
+        Funcionarios 
+        <button type="button" class="btn btn-primary text-rigth" data-toggle="modal" data-target=".addFuncionario"><span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+        <input class="form-control" ng-model="search" type="text" placeholder="Filtar" > 
+    </div>
+    <div class="well col-md-6" ng-repeat="funcionario in vm.funcionarios | filter:search">
+        <p class="text-right">
+            <a href="#funcionarios" ng-click="vm.delete($index,funcionario.id)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            <a href="#funcionarios" ng-click="vm.updateData(funcionario)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        </p>
+        <p>
+            <strong>Nombres</strong> <span >{{funcionario.nombres}}</span>
+        </p>
+        <p>
+            <strong>Apellido Materno</strong> <span >{{funcionario.apellido_paterno}}</span>
+        </p>
+        <p>
+            <strong>Apellido Paterno</strong> <span >{{funcionario.apellido_materno}}</span>
+        </p>
+        <p>
+            <strong>Cargo</strong> <span >{{funcionario.cargo_id.tipo}}</span>
+        </p>
+    </div>
+    <div ng-include="'templates/funcionarios/new.html'"></div> 
+    <div ng-include="'templates/funcionarios/edit.html'"></div>  
+</div> 
