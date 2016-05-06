@@ -11,13 +11,14 @@
     
     app.controller('ciudadesCtrl',ciudades);
 
-    ciudades.$inject=['$scope', '$rootScope','CiudadesService','EstadosService','$timeout'];
+    ciudades.$inject=['$scope', '$rootScope','CiudadesService','EstadosService','$timeout','JsPopup'];
 
-    function ciudades($scope, $rootScope,CiudadesService,EstadosService,$timeout){
+    function ciudades($scope, $rootScope,CiudadesService,EstadosService,$timeout,JsPopup){
         var vm = this;
         vm.addTitle="Agregar Ciudad";
         vm.editTitle="Editar Ciudad";
         vm.formPath="templates/ciudades/form.html";
+        vm.confirmationTitle="Deses eliminar la cuidad";
         vm.formData = {};
         vm.ciudades = [];
         vm.estados = [];
@@ -32,8 +33,8 @@
             
         });
             
-        vm.delete= function(index,id){
-            CiudadesService.removeCiudad(id).then(function(response) {
+        vm.delete= function(){
+            CiudadesService.removeCiudad(vm.formData.id).then(function(response) {
                 CiudadesService.getCiudades().then(function(response) {
                     vm.ciudades = response;
                 });
@@ -41,16 +42,28 @@
             }, function(err) {
                 vm.error("Hubo un error al eliminar la ciudad");
             });
-        }
+        };
+        vm.confirmationModal= function (data){
+            console.log("entro al pinche modal");
+            //vm.formData.index=index;
+            console.log(data);
+            vm.fillData(data);
+            (JsPopup.confirmationJs())?vm.delete():vm.clearForm();
+
+        };
         vm.updateData= function (data){
+            vm.fillData(data);
+            $('.editModal').modal('show');
+        };       
+        vm.fillData= function (data){
+            console.log("cambia la pinche info");
                 vm.formData.id=data.id;
                 vm.formData.nombre=data.nombre;
                 vm.formData.estado_id=data.estado_id;
-                $('.editModal').modal('show');
         };
         vm.edit= function(){
             console.log(vm.formData);
-            vm.formData.estado_id=vm.formData.estado_id.id;
+            //vm.formData.estado_id=vm.formData.estado_id.id;
             CiudadesService.updateCiudad(vm.formData).then(function(response) {
                 CiudadesService.getCiudades().then(function(response) {
                     vm.ciudades = response;
@@ -61,8 +74,9 @@
                 vm.error("Hubo un error al editar la ciudad");
             });
             $('.editModal').modal('hide');
-        }
+        };
         vm.create= function(){
+            console.log(vm.formData);
             CiudadesService.addCiudad(vm.formData).then(function(response) {
                 CiudadesService.getCiudades().then(function(response) {
                     vm.ciudades = response;
@@ -74,7 +88,7 @@
                 vm.error("Hubo un error al crear la ciudad");
             });
             $('.addModal').modal('hide');
-        }
+        };
         vm.clearForm= function(){
             vm.formData={};
         };

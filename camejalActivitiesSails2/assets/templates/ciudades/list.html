@@ -24,7 +24,7 @@
             <tr ng-repeat="ciudad in vm.ciudades | orderBy:predicate:reverse | filter:search">
                 <td>{{ciudad.nombre}}</td>
                 <td>{{ciudad.estado_id.nombre}}</td>
-                <td><a href="#ciudades" ng-click="vm.delete($index,ciudad.id)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                <td><a href="#ciudades" ng-click="vm.confirmationModal(ciudad)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 <td><a href="#ciudades" ng-click="vm.updateData(ciudad)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
             </tr>               
         </tbody>

@@ -17,7 +17,7 @@ module.exports = {
        size: 45,
        required: true
     },
-    createdAt:{
+    fecha:{
        type: 'datetime',
        defaultsTo: function (){ return new Date(); },
        columnName: 'fecha',

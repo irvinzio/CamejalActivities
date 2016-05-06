@@ -1,4 +1,4 @@
-(function(){
+    (function(){
     'use strict';
     app.config(['$routeProvider',
       function($routeProvider) {
@@ -18,9 +18,9 @@
         var vm = this;
         vm.formData = {};
         vm.eventos = [];
-        vm.addTitle="Agregar Convenio";
-        vm.editTitle="Editar Convenio";
-        vm.editTitle="Desea Eliminar al cargo?";
+        vm.addTitle="Agregar Evento";
+        vm.editTitle="Editar Evento";
+        vm.editTitle="Desea eliminar el evento?";
         vm.formPath="templates/eventos/form.html";
 
         EventosService.getEventos().then(function(response) {
@@ -33,7 +33,7 @@
         });
         
         vm.delete= function(index,id){
-            EventosService.removeConvenio(id).then(function(response) {
+            EventosService.removeEvento(id).then(function(response) {
                 console.log(response);
                 vm.eventos.splice(index, 1);
                 vm.success("Se elimino el evento correctamente");
@@ -47,7 +47,7 @@
         };
         vm.edit= function(){
             vm.formData.institucion_id=vm.formData.institucion_id.id;
-            EventosService.updateConvenio(vm.formData).then(function(response) {
+            EventosService.updateEvento(vm.formData).then(function(response) {
                 vm.clearForm();
                 EventosService.getEventos().then(function(response) {
                     vm.eventos = response;
@@ -59,7 +59,7 @@
             $('.editModal').modal('hide');
         }
         vm.create= function(){
-            EventosService.addConvenio(vm.formData).then(function(response) {
+            EventosService.addEvento(vm.formData).then(function(response) {
                 vm.clearForm();
                 EventosService.getEventos().then(function(response) {
                     vm.eventos = response;

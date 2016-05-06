@@ -20,11 +20,12 @@
         vm.convenios = [];
         vm.addTitle="Agregar Convenio";
         vm.editTitle="Editar Convenio";
-        vm.editTitle="Desea Eliminar al cargo?";
+        vm.deleteTitle="Desea eliminar el convenio?";
         vm.formPath="templates/convenios/form.html";
 
         ConveniosService.getConvenios().then(function(response) {
             vm.convenios = response;
+            console.log(vm.convenios);
             
         });
         InstitucionesService.getInstituciones().then(function(response) {
@@ -32,10 +33,10 @@
             
         });
         
-        vm.delete= function(index,id){
-            ConveniosService.removeConvenio(id).then(function(response) {
+        vm.delete= function(){
+            ConveniosService.removeConvenio(vm.formData.id).then(function(response) {
                 console.log(response);
-                vm.convenios.splice(index, 1);
+                vm.convenios.splice(vm.formData.index, 1);
                 vm.success("Se elimino el convenio correctamente");
             }, function(err) {
                 vm.error("Hubo un error al editar el convenio");
@@ -46,7 +47,7 @@
                 $('.editModal').modal('show');
         };
         vm.edit= function(){
-            vm.formData.institucion_id=vm.formData.institucion_id.id;
+            //vm.formData.institucion_id=vm.formData.institucion_id.id;
             console.log(vm.formData);
             ConveniosService.updateConvenio(vm.formData).then(function(response) {
                 vm.clearForm();
@@ -60,7 +61,8 @@
             $('.editModal').modal('hide');
         }
         vm.create= function(){
-            vm.formData.institucion_id=vm.formData.institucion_id.id;
+            console.log(vm.formData);
+            //vm.formData.institucion_id=vm.formData.institucion_id.id;
             console.log("esta creando el puto registro");
             console.log(vm.formData);
             ConveniosService.addConvenio(vm.formData).then(function(response) {
@@ -75,13 +77,15 @@
             $('.addModal').modal('hide');
         }
          vm.fillData = function(data){
+            console.log(data);
             vm.formData.id=data.id;
-            vm.formData.nombres=data.nombres;
-            vm.formData.apellido_materno=data.apellido_materno;
-            vm.formData.apellido_paterno=data.apellido_paterno;
+            vm.formData.nombre=data.nombre;
+            vm.formData.autoridad=data.autoridad;
+            vm.formData.fecha=data.fecha.slice(0, 10);
             vm.formData.institucion_id=data.institucion_id;
         };
         vm.confirmationModal= function (index,data){
+            vm.formData.index=index;
             vm.fillData(data);
             $('.comfirmationModal').modal('show');
         };
