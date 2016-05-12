@@ -22,7 +22,7 @@
       <tbody>
           <tr ng-repeat="tipoEvento in vm.tipoEventos | orderBy:predicate:reverse | filter:search">
               <td>{{tipoEvento.tipo}}</td>
-              <td><a href="#tipoEventos" ng-click="vm.delete($index,tipoEvento.id)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+              <td><a href="#tipoEventos" ng-click="vm.confirmationModal(tipoEvento)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
               <td><a href="#tipoEventos" ng-click="vm.updateData(tipoEvento)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
           </tr>				
       </tbody>

@@ -1,4 +1,4 @@
-(function(){
+    (function(){
     'use strict';
     app.config(['$routeProvider',
       function($routeProvider) {
@@ -18,14 +18,13 @@
         vm.addTitle="Agregar Ciudad";
         vm.editTitle="Editar Ciudad";
         vm.formPath="templates/ciudades/form.html";
-        vm.confirmationTitle="Deses eliminar la cuidad";
+        vm.deleteTitle="Deses eliminar la cuidad?";
         vm.formData = {};
         vm.ciudades = [];
         vm.estados = [];
 
         CiudadesService.getCiudades().then(function(response) {
-            vm.ciudades = response;
-            
+            vm.ciudades = response;  
         });
 
         EstadosService.getEstados().then(function(response) {
@@ -33,10 +32,11 @@
             
         });
             
-        vm.delete= function(){
-            CiudadesService.removeCiudad(vm.formData.id).then(function(response) {
+        vm.delete= function(id){
+            CiudadesService.removeCiudad(id).then(function(response) {
                 CiudadesService.getCiudades().then(function(response) {
                     vm.ciudades = response;
+                    
                 });
                 vm.success("Se elimino la ciudad correctamente");
             }, function(err) {
@@ -44,11 +44,8 @@
             });
         };
         vm.confirmationModal= function (data){
-            console.log("entro al pinche modal");
-            //vm.formData.index=index;
-            console.log(data);
             vm.fillData(data);
-            (JsPopup.confirmationJs())?vm.delete():vm.clearForm();
+            (JsPopup.confirmationJs())?vm.delete(vm.formData.id):vm.clearForm();
 
         };
         vm.updateData= function (data){
@@ -56,13 +53,11 @@
             $('.editModal').modal('show');
         };       
         vm.fillData= function (data){
-            console.log("cambia la pinche info");
                 vm.formData.id=data.id;
                 vm.formData.nombre=data.nombre;
                 vm.formData.estado_id=data.estado_id;
         };
         vm.edit= function(){
-            console.log(vm.formData);
             //vm.formData.estado_id=vm.formData.estado_id.id;
             CiudadesService.updateCiudad(vm.formData).then(function(response) {
                 CiudadesService.getCiudades().then(function(response) {
@@ -76,7 +71,6 @@
             $('.editModal').modal('hide');
         };
         vm.create= function(){
-            console.log(vm.formData);
             CiudadesService.addCiudad(vm.formData).then(function(response) {
                 CiudadesService.getCiudades().then(function(response) {
                     vm.ciudades = response;

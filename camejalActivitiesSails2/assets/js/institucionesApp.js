@@ -11,13 +11,14 @@
     
     app.controller('institucionesCtrl',instituciones);
 
-    instituciones.$inject=['$scope', '$rootScope','InstitucionesService','$timeout'];
+    instituciones.$inject=['$scope', '$rootScope','InstitucionesService','$timeout','JsPopup'];
 
-    function instituciones($scope, $rootScope,InstitucionesService,$timeout){
+    function instituciones($scope, $rootScope,InstitucionesService,$timeout,JsPopup){
         var vm = this;
         vm.addTitle="Agregar Institucion";
         vm.editTitle="Editar Institucion";
         vm.formPath="templates/instituciones/form.html";
+        vm.deleteTitle="Desea eliminar la institucion?";
         vm.formData = {};
         vm.instituciones = [];
 
@@ -26,7 +27,7 @@
             
         });
             
-        vm.delete= function(index,id){
+        vm.delete= function(id){
             InstitucionesService.removeInstitucion(id).then(function(response) {
                 InstitucionesService.getInstituciones().then(function(response) {
                     vm.instituciones = response;
@@ -37,9 +38,18 @@
             });
         }
         vm.updateData= function (data){
-                vm.formData.id=data.id;
-                vm.formData.nombre=data.nombre;
-                $('.editModal').modal('show');
+            vm.fillData(data);
+            $('.editModal').modal('show');
+        };
+        vm.confirmationModal= function (data){
+            console.log(data);
+            vm.fillData(data);
+            (JsPopup.confirmationJs())?vm.delete(vm.formData.id):vm.clearForm();
+
+        };
+         vm.fillData = function(data){
+            vm.formData.id=data.id;
+            vm.formData.nombre=data.nombre;
         };
         vm.edit= function(){
             InstitucionesService.updateInstitucion(vm.formData).then(function(response) {

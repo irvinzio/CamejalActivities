@@ -11,10 +11,10 @@
     
     app.controller('eventosCtrl',eventos);
 
-    eventos.$inject=['$scope', '$rootScope', 'EventosService','InstitucionesService','$timeout'];
+    eventos.$inject=['$scope', '$rootScope','FuncionariosService','EventosService','InstitucionesService','CiudadesService','EstadosService','TipoEventosService','ParticipacionService','$timeout','JsPopup'];
     //cargoInfo.$inject=['$scope', '$rootScope','$routeParams', 'EventosService','InstitucionesService'];
 
-    function eventos($scope, $rootScope,EventosService,InstitucionesService,$timeout){
+    function eventos($scope, $rootScope,FuncionariosService,EventosService,InstitucionesService,CiudadesService,EstadosService,TipoEventosService,ParticipacionService,$timeout,JsPopup){
         var vm = this;
         vm.formData = {};
         vm.eventos = [];
@@ -23,30 +23,64 @@
         vm.editTitle="Desea eliminar el evento?";
         vm.formPath="templates/eventos/form.html";
 
-        EventosService.getEventos().then(function(response) {
-            vm.eventos = response;
+        FuncionariosService.getFuncionarios().then(function(response) {
+            vm.funcionarios = response;
             
+        });
+        EventosService.getEventos().then(function(response) {
+            vm.eventos = response; 
+            console.log(response); 
         });
         InstitucionesService.getInstituciones().then(function(response) {
             vm.instituciones = response;
             
         });
-        
-        vm.delete= function(index,id){
+        ParticipacionService.getParticipaciones().then(function(response) {
+            vm.participaciones = response;
+        });
+        TipoEventosService.getTipoEventos().then(function(response) {
+            vm.tipoEventos = response;    
+        });
+        CiudadesService.getCiudades().then(function(response) {
+            vm.CiudadesService = response;  
+        });
+        EstadosService.getEstados().then(function(response) {
+            vm.estados = response;  
+        });
+        vm.delete= function(id){
             EventosService.removeEvento(id).then(function(response) {
-                console.log(response);
-                vm.eventos.splice(index, 1);
-                vm.success("Se elimino el evento correctamente");
+                EventosService.getEventos().then(function(response) {
+                    vm.eventos = response; 
+                    console.log(response); 
+                });
             }, function(err) {
                 vm.error("Hubo un error al editar el evento");
             });
         }
         vm.updateData= function (data){
-                vm.fillData(data);
-                $('.editModal').modal('show');
+            console.log(data);
+            vm.fillData(data);
+            $('.editModal').modal('show');
+        };
+        vm.confirmationModal= function (data){
+            vm.fillData(data);
+            (JsPopup.confirmationJs())?vm.delete(vm.formData.id):vm.clearForm();
+
+        };
+        vm.fillData = function(data){
+            vm.formData.id=data.id;
+            vm.formData.nombre=data.nombre;
+            vm.formData.tema=data.tema;
+            vm.formData.fecha=data.fecha.slice(0, 10);
+            vm.formData.institucion_id=data.institucion_id;
+            vm.formData.ciudad_id=data.ciudad_id;
+            vm.formData.funcionario_id=data.funcionario_id;
+            vm.formData.participacion_id=data.participacion_id;
+            vm.formData.tipo_evento_id=data.tipo_evento_id;
+            vm.formData.numero_asistentes=data.numero_asistentes;
         };
         vm.edit= function(){
-            vm.formData.institucion_id=vm.formData.institucion_id.id;
+            //vm.formData.institucion_id=vm.formData.institucion_id.id;
             EventosService.updateEvento(vm.formData).then(function(response) {
                 vm.clearForm();
                 EventosService.getEventos().then(function(response) {
@@ -59,6 +93,7 @@
             $('.editModal').modal('hide');
         }
         vm.create= function(){
+            console.log(vm.formData);
             EventosService.addEvento(vm.formData).then(function(response) {
                 vm.clearForm();
                 EventosService.getEventos().then(function(response) {
@@ -70,17 +105,6 @@
             });
             $('.addModal').modal('hide');
         }
-         vm.fillData = function(data){
-            vm.formData.id=data.id;
-            vm.formData.nombres=data.nombres;
-            vm.formData.apellido_materno=data.apellido_materno;
-            vm.formData.apellido_paterno=data.apellido_paterno;
-            vm.formData.institucion_id=data.institucion_id;
-        };
-        vm.confirmationModal= function (index,data){
-            vm.fillData(data);
-            $('.comfirmationModal').modal('show');
-        };
         vm.clearForm= function(){
             vm.formData={};
         };
@@ -95,5 +119,12 @@
              $timeout(function(){ 
                 vm.ok=!vm.ok; }, 3000);
         };
+        vm.updateCiudades = function(){
+            console.log(vm.formData.estado_id); 
+            CiudadesService.getCiudadByEstado(vm.formData.estado_id.id).then(function(response) {
+                vm.ciudades = response;  
+                console.log(response);
+            });           
+        }
     }    
 })();

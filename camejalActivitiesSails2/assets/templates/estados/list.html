@@ -22,7 +22,7 @@
         <tbody>
             <tr ng-repeat="estado in vm.estados | orderBy:predicate:reverse | filter:search">
                 <td>{{estado.nombre}}</td>
-                <td><a href="#estados" ng-click="vm.delete(estado.id)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                <td><a href="#estados" ng-click="vm.confirmationModal(estado)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 <td><a href="#estados" ng-click="vm.updateData(estado)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
             </tr>               
         </tbody>

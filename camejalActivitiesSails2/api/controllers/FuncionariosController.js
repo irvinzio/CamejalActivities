@@ -6,9 +6,10 @@
  */
 
 module.exports = {
+
     /**
     * CommentController.create()
-    */
+
     create: function (req, res) {
         return res.json({
           todo: 'Not implemented yet!'
@@ -16,7 +17,7 @@ module.exports = {
     },
     /**
     * FuncionariosController.show()
-    */
+
     show: function (req, res) {
         console.log(req.param('id'));
         return res.json({
@@ -27,7 +28,7 @@ module.exports = {
     },
     /**
     * CommentController.destroy()
-    */
+
     destroy: function (req, res) {
         return res.json({
           todo: 'Not implemented yet!'
@@ -36,7 +37,6 @@ module.exports = {
 
     /**
     * CommentController.tag()
-    */
     tag: function (req, res) {
         return res.json({
           todo: 'Not implemented yet!'
@@ -45,11 +45,12 @@ module.exports = {
 
     /**
     * CommentController.like()
-    */
+
     like: function (req, res) {
         return res.json({
           todo: 'Not implemented yet!'
         });
     }
+    */
 };
 

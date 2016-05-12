@@ -36,15 +36,14 @@ app.service('CiudadesService', function($http, $q) {
         defer.reject(err);
       });
       return defer.promise;
-    },
-    'updateCiudad': function(data) {
-      var defer = $q.defer();
-      $http.put('/api/Ciudades/'+data.id,data).success(function(resp){
-        defer.resolve(resp);
-      }).error( function(err) {
-                console.log(err);
-        defer.reject(err);
-      });
-      return defer.promise;
-    }
+    },  
+    'getCiudadByEstado':function(estado_id){
+        var defer = $q.defer();
+        $http.get('/api/Ciudades?estado_id='+estado_id).success(function(resp){
+          defer.resolve(resp);
+        }).error( function(err) {
+          defer.reject(err);
+        });
+        return defer.promise;
+      }
 }});

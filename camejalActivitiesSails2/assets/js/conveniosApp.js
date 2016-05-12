@@ -11,10 +11,10 @@
     
     app.controller('conveniosCtrl',convenios);
 
-    convenios.$inject=['$scope', '$rootScope', 'ConveniosService','InstitucionesService','$timeout'];
+    convenios.$inject=['$scope', '$rootScope', 'ConveniosService','InstitucionesService','$timeout','JsPopup'];
     //cargoInfo.$inject=['$scope', '$rootScope','$routeParams', 'ConveniosService','InstitucionesService'];
 
-    function convenios($scope, $rootScope,ConveniosService,InstitucionesService,$timeout){
+    function convenios($scope, $rootScope,ConveniosService,InstitucionesService,$timeout,JsPopup){
         var vm = this;
         vm.formData = {};
         vm.convenios = [];
@@ -24,19 +24,18 @@
         vm.formPath="templates/convenios/form.html";
 
         ConveniosService.getConvenios().then(function(response) {
-            vm.convenios = response;
-            console.log(vm.convenios);
-            
+            vm.convenios = response;     
         });
         InstitucionesService.getInstituciones().then(function(response) {
             vm.instituciones = response;
             
         });
         
-        vm.delete= function(){
-            ConveniosService.removeConvenio(vm.formData.id).then(function(response) {
-                console.log(response);
-                vm.convenios.splice(vm.formData.index, 1);
+        vm.delete= function(id){
+            ConveniosService.removeConvenio(id).then(function(response) {
+                 ConveniosService.getConvenios().then(function(response) {
+                    vm.convenios = response;     
+                });
                 vm.success("Se elimino el convenio correctamente");
             }, function(err) {
                 vm.error("Hubo un error al editar el convenio");
@@ -46,9 +45,20 @@
                 vm.fillData(data);
                 $('.editModal').modal('show');
         };
+        vm.confirmationModal= function (data){
+            vm.fillData(data);
+            (JsPopup.confirmationJs())?vm.delete(vm.formData.id):vm.clearForm();
+
+        };
+        vm.fillData = function(data){
+            vm.formData.id=data.id;
+            vm.formData.nombre=data.nombre;
+            vm.formData.autoridad=data.autoridad;
+            vm.formData.fecha=data.fecha.slice(0, 10);
+            vm.formData.institucion_id=data.institucion_id;
+        };
         vm.edit= function(){
             //vm.formData.institucion_id=vm.formData.institucion_id.id;
-            console.log(vm.formData);
             ConveniosService.updateConvenio(vm.formData).then(function(response) {
                 vm.clearForm();
                 ConveniosService.getConvenios().then(function(response) {
@@ -61,10 +71,7 @@
             $('.editModal').modal('hide');
         }
         vm.create= function(){
-            console.log(vm.formData);
             //vm.formData.institucion_id=vm.formData.institucion_id.id;
-            console.log("esta creando el puto registro");
-            console.log(vm.formData);
             ConveniosService.addConvenio(vm.formData).then(function(response) {
                 vm.clearForm();
                 ConveniosService.getConvenios().then(function(response) {
@@ -76,19 +83,6 @@
             });
             $('.addModal').modal('hide');
         }
-         vm.fillData = function(data){
-            console.log(data);
-            vm.formData.id=data.id;
-            vm.formData.nombre=data.nombre;
-            vm.formData.autoridad=data.autoridad;
-            vm.formData.fecha=data.fecha.slice(0, 10);
-            vm.formData.institucion_id=data.institucion_id;
-        };
-        vm.confirmationModal= function (index,data){
-            vm.formData.index=index;
-            vm.fillData(data);
-            $('.comfirmationModal').modal('show');
-        };
         vm.clearForm= function(){
             vm.formData={};
         };

@@ -11,22 +11,22 @@
     
     app.controller('tipoEventoCtrl',tipoEventos);
 
-    tipoEventos.$inject=['$scope', '$rootScope','TipoEventosService','$timeout'];
+    tipoEventos.$inject=['$scope', '$rootScope','TipoEventosService','$timeout','JsPopup'];
 
-    function tipoEventos($scope, $rootScope,TipoEventosService,$timeout){
+    function tipoEventos($scope, $rootScope,TipoEventosService,$timeout,JsPopup){
         var vm = this;
         vm.addTitle="Agregar Tipo de Evento";
         vm.editTitle="Editar Tipo de Evento";
         vm.formPath="templates/tipoEventos/form.html";
+        vm.deleteTitle="Desea eliminar el evento?";
         vm.formData = {};
         vm.tipoEventos = [];
 
         TipoEventosService.getTipoEventos().then(function(response) {
-            vm.tipoEventos = response;
-            
+            vm.tipoEventos = response;    
         });
             
-        vm.delete= function(index,id){
+        vm.delete= function(id){
             TipoEventosService.removeTipoEvento(id).then(function(response) {
                 TipoEventosService.getTipoEventos().then(function(response) {
                     vm.tipoEventos = response;
@@ -37,9 +37,17 @@
             });
         }
         vm.updateData= function (data){
-                vm.formData.id=data.id;
-                vm.formData.tipo=data.tipo;
+                vm.fillData(data);
                 $('.editModal').modal('show');
+        };
+        vm.confirmationModal= function (data){
+            vm.fillData(data);
+            (JsPopup.confirmationJs())?vm.delete(vm.formData.id):vm.clearForm();
+
+        };
+        vm.fillData = function(data){
+            vm.formData.id=data.id;
+            vm.formData.tipo=data.tipo;
         };
         vm.edit= function(){
             TipoEventosService.updateTipoEvento(vm.formData).then(function(response) {
@@ -54,9 +62,7 @@
             $('.editModal').modal('hide');
         }
         vm.create= function(){
-            console.log("data before ="+vm.formData);
             TipoEventosService.addTipoEvento(vm.formData).then(function(response) {
-                //vm.clearForm();
                 TipoEventosService.getTipoEventos().then(function(response) {
                     vm.tipoEventos = response; 
                 });

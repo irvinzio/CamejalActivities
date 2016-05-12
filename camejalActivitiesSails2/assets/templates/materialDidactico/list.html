@@ -21,7 +21,7 @@
         <tbody>
             <tr ng-repeat="material_didactico in vm.materialDidactico | orderBy:predicate:reverse | filter:search">
                 <td>{{material_didactico.tipo}}</td>
-                <td><a href="#materialDidactico" ng-click="vm.delete($index,material_didactico.id)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                <td><a href="#materialDidactico" ng-click="vm.confirmationModal(material_didactico)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 <td><a href="#materialDidactico" ng-click="vm.updateData(material_didactico)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
             </tr>				
         </tbody>

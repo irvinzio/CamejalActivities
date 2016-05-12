@@ -11,22 +11,22 @@
     
     app.controller('participacionesCtrl',participaciones);
 
-    participaciones.$inject=['$scope', '$rootScope','ParticipacionService','$timeout'];
+    participaciones.$inject=['$scope', '$rootScope','ParticipacionService','$timeout','JsPopup'];
 
-    function participaciones($scope, $rootScope,ParticipacionService,$timeout){
+    function participaciones($scope, $rootScope,ParticipacionService,$timeout,JsPopup){
         var vm = this;
         vm.addTitle="Agregar Participacion";
         vm.editTitle="Editar Participacion";
         vm.formPath="templates/participaciones/form.html";
+        vm.deleteTitle="Desea eliminar la participacion?";
         vm.formData = {};
         vm.participaciones = [];
 
         ParticipacionService.getParticipaciones().then(function(response) {
             vm.participaciones = response;
-            
         });
             
-        vm.delete= function(index,id){
+        vm.delete= function(id){
             ParticipacionService.removeParticipacion(id).then(function(response) {
                 ParticipacionService.getParticipaciones().then(function(response) {
                     vm.participaciones = response;
@@ -36,12 +36,19 @@
             });
         }
         vm.updateData= function (data){
-                vm.formData.id=data.id;
-                vm.formData.tipo=data.tipo;
+                vm.fillData(data);
                 $('.editModal').modal('show');
         };
+        vm.confirmationModal= function (data){
+            vm.fillData(data);
+            (JsPopup.confirmationJs())?vm.delete(vm.formData.id):vm.clearForm();
+
+        };
+         vm.fillData = function(data){
+            vm.formData.id=data.id;
+            vm.formData.tipo=data.tipo;
+        };
         vm.edit= function(){
-            console.log(vm.formData);
             ParticipacionService.updateParticipacion(vm.formData).then(function(response) {
                 ParticipacionService.getParticipaciones().then(function(response) {
                     vm.participaciones = response;
@@ -54,7 +61,6 @@
             $('.editModal').modal('hide');
         }
         vm.create= function(){
-            console.log(vm.formData);
             ParticipacionService.addParticipacion(vm.formData).then(function(response) {
                 ParticipacionService.getParticipaciones().then(function(response) {
                     vm.participaciones = response;

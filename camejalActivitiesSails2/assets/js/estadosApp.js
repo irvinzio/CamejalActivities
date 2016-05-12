@@ -11,21 +11,25 @@
     
     app.controller('estadosCtrl',estados);
 
-    estados.$inject=['$scope', '$rootScope','EstadosService','$timeout'];
+    estados.$inject=['$scope', '$rootScope','EstadosService','$timeout','JsPopup'];
 
-    function estados($scope, $rootScope,EstadosService,$timeout){
+    function estados($scope, $rootScope,EstadosService,$timeout,JsPopup){
         var vm = this;
         vm.addTitle="Agregar Estado";
         vm.editTitle="Editar Estado";
+        vm.deleteTitle="Deses eliminar el Estado";
         vm.formPath="templates/estados/form.html";
         vm.formData = {};
         vm.estados = [];
 
         EstadosService.getEstados().then(function(response) {
-            vm.estados = response;
-            
+            vm.estados = response;  
         });
-            
+        vm.confirmationModal= function (data){
+            vm.fillData(data);
+            (JsPopup.confirmationJquery())?vm.delete():vm.clearForm();
+
+        };    
         vm.delete= function(id){
             EstadosService.removeEstado(id).then(function(response) {
                 EstadosService.getEstados().then(function(response) {
@@ -41,6 +45,16 @@
                 vm.formData.nombre=data.nombre;
                 $('.editModal').modal('show');
         };
+        vm.confirmationModal= function (data){
+            vm.fillData(data);
+            (JsPopup.confirmationJs())?vm.delete(vm.formData.id):vm.clearForm();
+
+        };      
+        vm.fillData= function (data){
+                vm.formData.id=data.id;
+                vm.formData.nombre=data.nombre;
+                vm.formData.estado_id=data.estado_id;
+        };
         vm.edit= function(){
             EstadosService.updateEstado(vm.formData).then(function(response) {
                 EstadosService.getEstados().then(function(response) {
@@ -54,9 +68,7 @@
             $('.editModal').modal('hide');
         }
         vm.create= function(){
-            console.log("before = "+JSON.stringify(vm.formData));
             EstadosService.addEstado(vm.formData).then(function(response) {
-                console.log("after = "+JSON.stringify(vm.formData));
                 EstadosService.getEstados().then(function(response) {
                     vm.estados = response;
                     

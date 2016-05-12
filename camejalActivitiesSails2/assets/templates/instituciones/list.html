@@ -22,7 +22,7 @@
         <tbody>
             <tr ng-repeat="institucion in vm.instituciones | orderBy:predicate:reverse | filter:search">
                 <td>{{institucion.nombre}}</td>
-                <td><a href="#instituciones" ng-click="vm.delete($index,institucion.id)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                <td><a href="#instituciones" ng-click="vm.confirmationModal(institucion)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 <td><a href="#instituciones" ng-click="vm.updateData(institucion)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
             </tr>               
         </tbody>

@@ -28,17 +28,18 @@
             <strong>Institucion</strong> <span >{{evento.institucion_id.nombre}}</span>
         </p>
         <p>
-            <strong>Funcionario</strong> <span >{{evento.funcionario_id.nombre}}</span>
+            <strong>Funcionario</strong> <span >{{evento.funcionario_id.nombres}}</span>
         </p>
         <p>
-            <strong>Participacion</strong> <span >{{evento.Participacion_id.tipo}}</span>
+            <strong>Participacion</strong> <span >{{evento.participacion_id.tipo}}</span>
         </p>
         <p>
             <strong>Tipo de evento</strong> <span >{{evento.tipo_evento_id.tipo}}</span>
         </p>
         <p>
-            <strong>Ciudad</strong> <span >{{evento.nombre}}</span>
+            <strong>Ciudad</strong> <span >{{evento.ciudad_id.nombre}}</span>
         </p>
     </div>
-    <div ng-include="'templates/commonModals.html'"></div> 
+    <div ng-include="'templates/newModal.html'"></div> 
+    <div ng-include="'templates/editModal.html'"></div> 
 </div> 

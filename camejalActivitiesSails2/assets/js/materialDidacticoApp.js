@@ -11,13 +11,14 @@
     
     app.controller('materialDidacticoCtrl',materialDidactico);
 
-    materialDidactico.$inject=['$scope', '$rootScope','MaterialDidacticoService','$timeout'];
+    materialDidactico.$inject=['$scope', '$rootScope','MaterialDidacticoService','$timeout','JsPopup'];
 
-    function materialDidactico($scope, $rootScope,MaterialDidacticoService,$timeout){
+    function materialDidactico($scope, $rootScope,MaterialDidacticoService,$timeout,JsPopup){
         var vm = this;
         vm.addTitle="Agregar MaterialDidactico";
         vm.editTitle="Editar MaterialDidactico";
         vm.formPath="templates/materialDidactico/form.html";
+        vm.deleteTitle="Desea eliminar el material didactico?";
         vm.formData = {};
         vm.materialDidactico = [];
 
@@ -26,7 +27,7 @@
             
         });
             
-        vm.delete= function(index,id){
+        vm.delete= function(id){
             MaterialDidacticoService.removeMaterialDidactico(id).then(function(response) {
                 MaterialDidacticoService.getMaterialDidacticos().then(function(response) {
                     vm.materialDidactico = response;
@@ -36,9 +37,17 @@
             });
         }
         vm.updateData= function (data){
-                vm.formData.id=data.id;
-                vm.formData.tipo=data.tipo;
+                vm.fillData(data);
                 $('.editModal').modal('show');
+        };
+        vm.confirmationModal= function (data){
+            vm.fillData(data);
+            (JsPopup.confirmationJs())?vm.delete(vm.formData.id):vm.clearForm();
+
+        };
+         vm.fillData = function(data){
+            vm.formData.id=data.id;
+            vm.formData.tipo=data.tipo;
         };
         vm.edit= function(){
             MaterialDidacticoService.updateMaterialDidactico(vm.formData).then(function(response) {
@@ -53,7 +62,6 @@
             $('.editModal').modal('hide');
         }
         vm.create= function(){
-            console.log(vm.formData);
             MaterialDidacticoService.addMaterialDidactico(vm.formData).then(function(response) {
                 MaterialDidacticoService.getMaterialDidacticos().then(function(response) {
                     vm.materialDidactico = response;

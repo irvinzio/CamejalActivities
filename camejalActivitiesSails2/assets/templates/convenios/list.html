@@ -9,7 +9,7 @@
     </div>
     <div class="well col-md-6" ng-repeat="convenio in vm.convenios | filter:search">
         <p class="text-right">
-            <a href="#convenios" ng-click="vm.confirmationModal($index,convenio)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            <a href="#convenios" ng-click="vm.confirmationModal(convenio)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
             <a href="#convenios" ng-click="vm.updateData(convenio)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
         </p>
         <p>
