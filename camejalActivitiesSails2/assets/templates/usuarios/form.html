@@ -1,0 +1,39 @@
+<form name="myForm">
+      <div class="control-group" ng-class="{error: myForm.name.$invalid && !myForm.name.$pristine}">
+        <input class="form-control" type="text" name="nombres" ng-model="vm.formData.nombres" required placeholder="Nombres">
+        <span ng-show="myForm.name.$error.required && !myForm.name.$pristine" class="help-inline">
+            Required {{myForm.name.$pristine}}</span>
+      </div>        
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <input class="form-control" type="text" name="apellido_materno" ng-model="vm.formData.apellido_materno" required placeholder="Apellido Materno">
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <input class="form-control" type="text" name="apellido_paterno" ng-model="vm.formData.apellido_paterno" required placeholder="Apellido Paterno">
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <input class="form-control" type="text" name="correo" ng-model="vm.formData.correo" required placeholder="Correo">
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <input class="form-control" type="password" name="password" ng-model="vm.formData.password" required placeholder="Contraseña">
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+       <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <input class="form-control" type="password" name="password2" ng-model="vm.formData.password2" required placeholder="Confirmar Contraseña">
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <select class="form-control" name="rol" ng-options="r as rol.value for rol in vm.roles track by rol.id"
+                              ng-model="vm.formData.rol" required>
+        </select>
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+</form>

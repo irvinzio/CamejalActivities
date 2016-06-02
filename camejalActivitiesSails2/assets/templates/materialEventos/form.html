@@ -1,0 +1,22 @@
+<form name="myForm">
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <select class="form-control" name="evento" ng-options="evento as evento.nombre for evento in vm.eventos track by evento.id" ng-model="vm.formData.evento_id" required>
+            <option style="display:none" value="">Elige un evento</option>
+        </select>
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-primary" ng-click="vm.addField()" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></button>  
+      </div>
+      <fieldset ng-repeat="materiales in vm.formData.materiales" class="col-md-12">
+        <div  class="control-group materialDidacticoList"  ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+            <select class="form-control pre-selected-options " name="materialDidactico"  ng-click="vm.loadMaterials()" ng-options="md as md.tipo for md in vm.materialDidactico track by md.id" ng-model="materiales.material_didactico_id" required>
+                <option style="display:none" value="">Elige un material</option>
+            </select>
+            <input class="form-control" type="number" name="autoridad" ng-model="materiales.cantidad" required placeholder="Cantidad" required>
+            <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+                Required  {{myForm.name.$pristine}}</span>
+        </fieldset>
+      </div>
+</form>

@@ -12,11 +12,11 @@ module.exports = {
   autoCreatedAt: false,
   autoUpdatedAt: false, 
   attributes: {
-    id:{
-        type: 'integer',
-        primaryKey: true, 
-        autoIncrement: true
-    },
+    id: {
+            type: 'integer',
+            autoIncrement: true,
+            primaryKey: true
+        },
     cantidad:{
        type: 'integer',
        required: true

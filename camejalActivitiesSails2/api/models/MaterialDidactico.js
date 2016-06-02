@@ -7,16 +7,26 @@
 
 module.exports = {
 
-  connection: 'camejalMongo',
+  connection: 'camejalMySQL',
   tableName: 'material_didactico',
   autoCreatedAt: false,
   autoUpdatedAt: false, 
   attributes: {
+    id: {
+            type: 'integer',
+            autoIncrement: true,
+            primaryKey: true
+        },
     tipo:{
        type: 'string',
        size: 45,
        required: true
+    }/*,
+    MaterialEventos :{
+      collection : 'MaterialEvento',
+      via  : 'material_didactico_id'
     }
+    */
   }
 };
 

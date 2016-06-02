@@ -7,11 +7,16 @@
 
 module.exports = {
 
-  connection: 'camejalMongo',
+  connection: 'camejalMySQL',
   tableName: 'evento',
   autoCreatedAt: false,
   autoUpdatedAt: false, 
   attributes: {
+    id: {
+            type: 'integer',
+            autoIncrement: true,
+            primaryKey: true
+        },
     nombre:{
        type: 'string',
        size: 45,
@@ -37,12 +42,19 @@ module.exports = {
     participacion_id:{
        model: 'TipoParticipacion'
     },
-    institucion_id:{
-       model: 'Instituciones'
-    },
     tipo_evento_id:{
        model: 'TipoEvento'
-    }
+    },
+    fecha:{
+       type: 'datetime',
+       defaultsTo: function (){ return new Date(); },
+       columnName: 'fecha',
+       required: true
+    }/*,
+    MaterialEventos :{
+      collection : 'MaterialEvento',
+      via  : 'evento_id'
+    }*/ 
   }
 };
 

@@ -7,11 +7,16 @@
 
 module.exports = {
 
-  connection: 'camejalMongo',
+  connection: 'camejalMySQL',
   tableName: 'ciudad',
   autoCreatedAt: false,
   autoUpdatedAt: false, 
   attributes: {
+    id: {
+            type: 'integer',
+            autoIncrement: true,
+            primaryKey: true
+        },
     nombre:{
        type: 'string',
        size: 45,

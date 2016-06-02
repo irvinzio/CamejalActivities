@@ -58,7 +58,9 @@
             vm.formData.institucion_id=data.institucion_id;
         };
         vm.edit= function(){
-            //vm.formData.institucion_id=vm.formData.institucion_id.id;
+            vm.formData.institucion_id=vm.formData.institucion_id.id;
+            console.log("entro a esta chingadera");
+            console.log(vm.formData);
             ConveniosService.updateConvenio(vm.formData).then(function(response) {
                 vm.clearForm();
                 ConveniosService.getConvenios().then(function(response) {
@@ -66,6 +68,7 @@
                 });
                 vm.success("Se edito el convenio correctamente");
             }, function(err) {
+                console.log(err);
                 vm.error("Hubo un error al editar el convenio");
             });
             $('.editModal').modal('hide');

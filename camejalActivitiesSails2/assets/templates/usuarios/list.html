@@ -1,0 +1,28 @@
+<div class="panel panel-default" ng-controller="usuariosCtrl">
+  <!-- Default panel contents -->
+    <div class="panel-heading">
+        Usuarios 
+        <button type="button" class="btn btn-primary text-rigth" data-toggle="modal" data-target=".addModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+        <input class="form-control" ng-model="search" type="text" placeholder="Filtar" > 
+    </div>
+    <div class="well col-md-6" ng-repeat="usuario in vm.usuarios | filter:search">
+        <p class="text-right">
+            <a href="#usuarios" ng-click="vm.confirmationModal(usuario)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            <a href="#usuarios" ng-click="vm.updateData(usuario)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        </p>
+        <p>
+            <strong>Nombres</strong> <span >{{usuario.nombres}}</span>
+        </p>
+        <p>
+            <strong>Apellido Materno</strong> <span >{{usuario.apellido_paterno}}</span>
+        </p>
+        <p>
+            <strong>Apellido Paterno</strong> <span >{{usuario.apellido_materno}}</span>
+        </p>
+        <p>
+            <strong>Rol</strong> <span >{{vm.getRol(usuario.rol)}}</span>
+        </p>
+    </div>
+    <div ng-include="'templates/newModal.html'"></div> 
+    <div ng-include="'templates/editModal.html'"></div>
+</div> 

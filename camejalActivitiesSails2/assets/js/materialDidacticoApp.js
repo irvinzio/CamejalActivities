@@ -11,9 +11,9 @@
     
     app.controller('materialDidacticoCtrl',materialDidactico);
 
-    materialDidactico.$inject=['$scope', '$rootScope','MaterialDidacticoService','$timeout','JsPopup'];
+    materialDidactico.$inject=['$scope', '$rootScope','MaterialDidacticoService','EventosService','$timeout','JsPopup'];
 
-    function materialDidactico($scope, $rootScope,MaterialDidacticoService,$timeout,JsPopup){
+    function materialDidactico($scope, $rootScope,MaterialDidacticoService,EventosService,$timeout,JsPopup){
         var vm = this;
         vm.addTitle="Agregar MaterialDidactico";
         vm.editTitle="Editar MaterialDidactico";
@@ -24,9 +24,10 @@
 
         MaterialDidacticoService.getMaterialDidacticos().then(function(response) {
             vm.materialDidactico = response;
-            
         });
-            
+        EventosService.getEventos().then(function(response) {
+            vm.eventos = response; 
+        });
         vm.delete= function(id){
             MaterialDidacticoService.removeMaterialDidactico(id).then(function(response) {
                 MaterialDidacticoService.getMaterialDidacticos().then(function(response) {

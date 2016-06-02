@@ -29,7 +29,6 @@
         });
         EventosService.getEventos().then(function(response) {
             vm.eventos = response; 
-            console.log(response); 
         });
         InstitucionesService.getInstituciones().then(function(response) {
             vm.instituciones = response;
@@ -51,14 +50,12 @@
             EventosService.removeEvento(id).then(function(response) {
                 EventosService.getEventos().then(function(response) {
                     vm.eventos = response; 
-                    console.log(response); 
                 });
             }, function(err) {
                 vm.error("Hubo un error al editar el evento");
             });
         }
         vm.updateData= function (data){
-            console.log(data);
             vm.fillData(data);
             $('.editModal').modal('show');
         };
@@ -74,13 +71,19 @@
             vm.formData.fecha=data.fecha.slice(0, 10);
             vm.formData.institucion_id=data.institucion_id;
             vm.formData.ciudad_id=data.ciudad_id;
+            vm.formData.estado_id=data.ciudad_id.estado_id;
             vm.formData.funcionario_id=data.funcionario_id;
             vm.formData.participacion_id=data.participacion_id;
             vm.formData.tipo_evento_id=data.tipo_evento_id;
             vm.formData.numero_asistentes=data.numero_asistentes;
+            vm.updateCiudades();
         };
         vm.edit= function(){
-            //vm.formData.institucion_id=vm.formData.institucion_id.id;
+            vm.formData.institucion_id=vm.formData.institucion_id.id;
+            vm.formData.ciudad_id=vm.formData.ciudad_id.id;
+            vm.formData.funcionario_id=vm.formData.funcionario_id.id;
+            vm.formData.participacion_id=vm.formData.participacion_id.id;
+            vm.formData.tipo_evento_id=vm.formData.tipo_evento_id.id;
             EventosService.updateEvento(vm.formData).then(function(response) {
                 vm.clearForm();
                 EventosService.getEventos().then(function(response) {
@@ -88,12 +91,17 @@
                 });
                 vm.success("Se edito el evento correctamente");
             }, function(err) {
+                console.log(err);
                 vm.error("Hubo un error al editar el evento");
             });
             $('.editModal').modal('hide');
         }
         vm.create= function(){
-            console.log(vm.formData);
+            vm.formData.institucion_id=vm.formData.institucion_id.id;
+            vm.formData.ciudad_id=vm.formData.ciudad_id.id;
+            vm.formData.funcionario_id=vm.formData.funcionario_id.id;
+            vm.formData.participacion_id=vm.formData.participacion_id.id;
+            vm.formData.tipo_evento_id=vm.formData.tipo_evento_id.id;
             EventosService.addEvento(vm.formData).then(function(response) {
                 vm.clearForm();
                 EventosService.getEventos().then(function(response) {
@@ -120,10 +128,10 @@
                 vm.ok=!vm.ok; }, 3000);
         };
         vm.updateCiudades = function(){
-            console.log(vm.formData.estado_id); 
+            if(typeof vm.formData.estado_id.id === 'undefined')
+                vm.formData.estado_id={'id':vm.formData.ciudad_id.estado_id} ;
             CiudadesService.getCiudadByEstado(vm.formData.estado_id.id).then(function(response) {
                 vm.ciudades = response;  
-                console.log(response);
             });           
         }
     }    
