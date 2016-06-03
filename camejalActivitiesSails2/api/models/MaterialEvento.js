@@ -26,7 +26,14 @@ module.exports = {
     },
     evento_id:{
        model: 'Eventos'
+    }/*,
+    // Add a reference to materiales
+    maerialesList: {
+      collection: 'materialDidactico',
+      via: 'materiales'
     }
+    */
+    
   }
 };
 

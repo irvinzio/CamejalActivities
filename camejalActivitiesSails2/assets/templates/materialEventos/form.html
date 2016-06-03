@@ -14,7 +14,7 @@
             <select class="form-control pre-selected-options " name="materialDidactico"  ng-click="vm.loadMaterials()" ng-options="md as md.tipo for md in vm.materialDidactico track by md.id" ng-model="materiales.material_didactico_id" required>
                 <option style="display:none" value="">Elige un material</option>
             </select>
-            <input class="form-control" type="number" name="autoridad" ng-model="materiales.cantidad" required placeholder="Cantidad" required>
+            <input class="form-control" type="number" name="cantidad" ng-model="materiales.cantidad" required placeholder="Cantidad" required>
             <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
                 Required  {{myForm.name.$pristine}}</span>
         </fieldset>

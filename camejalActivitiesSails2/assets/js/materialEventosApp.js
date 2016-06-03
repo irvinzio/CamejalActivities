@@ -21,7 +21,7 @@
         vm.deleteTitle="Desea eliminar el material del evento?";
         vm.formData = {};
         vm.materialEvento = [];
-        vm.formData.materiales = [{id: 'opt1'}];
+        vm.formData.materiales = [{name: 'opt1'}];
         console.log("entro");
 
         MaterialEventosService.getMaterialEventos().then(function(response) {
@@ -79,18 +79,25 @@
         vm.create= function(){
             console.log(vm.formData);
             //vm.formData.material_didactico_id=vm.formData.material_didactico_id.id;
-            vm.formData.evento_id=vm.formData.evento_id.id;
-            MaterialEventosService.addMaterialEvento(vm.formData).then(function(response) {
-                MaterialEventosService.getMaterialEventos().then(function(response) {
-                    vm.materialEvento = response;
-                });
-                vm.clearForm();
-                vm.success("Se edito elmaterial para evento correctamente");
-            }, function(err) {
-                console.log(error);
-                vm.error("Hubo un error al crear elmaterial para evento");
-            });
+            vm.formData.materiales.forEach(
+                    function(material,index){
+                        material.evento_id=vm.formData.evento_id.id;
+                        material.material_didactico_id=material.material_didactico_id.id;
+                        console.log(material);
+                         MaterialEventosService.addMaterialEvento(material).then(function(response) {
+                            MaterialEventosService.getMaterialEventos().then(function(response) {
+                                vm.materialEvento = response;
+                            });
+                            vm.clearForm();
+                            vm.success("Se edito elmaterial para evento correctamente");
+                        }, function(err) {
+                            console.log(error);
+                            vm.error("Hubo un error al crear elmaterial para evento");
+                        });
+                    }
+                );  
             $('.addModal').modal('hide');
+            vm.formData.materiales = [{name: 'opt1'}];
         }
         vm.clearForm= function(){
             vm.formData={};
@@ -129,7 +136,7 @@
         }
         vm.addField = function() {
             var newItemNo = vm.formData.materiales.length+1;
-            vm.formData.materiales.push({'id':'opt'+newItemNo});
+            vm.formData.materiales.push({'name':'opt'+newItemNo});
         };
 
         vm.removeField = function() {

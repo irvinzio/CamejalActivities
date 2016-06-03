@@ -22,9 +22,9 @@ module.exports = {
        size: 45,
        required: true
     }/*,
-    MaterialEventos :{
-      collection : 'MaterialEvento',
-      via  : 'material_didactico_id'
+    // Add a reference to material Evento
+    materiales: {
+      model: 'materialEvento'
     }
     */
   }
