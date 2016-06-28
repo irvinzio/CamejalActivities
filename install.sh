@@ -10,8 +10,16 @@ echo "deb http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.2 multiverse"
 #Step 3: Refresh the local database with the packages
 sudo apt-get update
 #Step 4: Install the last stable MongoDB version and all the necessary packages on our system
-sudo apt-get install mongodb-org
+sudo apt-get install mongodb-org -y
 sudo apt-get install git -y
 sudo npm install
-#sudo npm -g install sails --save
-#sudo npm install express --save
+sudo npm -g install sails --save
+sudo npm install express --save
+cd camejalActivitiesSails2
+npm install sails-mysql --save
+npm install
+
+#install mysql without prompt (not tested)
+export DEBIAN_FRONTEND=noninteractive
+sudo -E apt-get -q -y install mysql-server
+#end mysql install
