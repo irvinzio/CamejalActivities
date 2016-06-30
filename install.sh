@@ -14,12 +14,11 @@ sudo apt-get install mongodb-org -y
 sudo apt-get install git -y
 sudo npm -g install sails --save
 sudo npm install express --save
-cd camejalActivitiesSails2
-npm install sails-mysql --save
-npm install
 #install mysql without prompt (not tested)
 export DEBIAN_FRONTEND=noninteractive
 sudo -E apt-get -q -y install mysql-server
-#end mysql install
+#end mysql Install
 mysql -u root  mydb < ~dump.sql
 cd camejalActivitiesSails2
+sudo npm install sails-mysql --save
+sudo npm install
