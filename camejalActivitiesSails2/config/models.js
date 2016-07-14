@@ -18,9 +18,7 @@ module.exports.models = {
   *                                                                          *
   ***************************************************************************/
   // connection: 'localDiskDb',
-  connection: 'camejalMySQL',
-  connection: 'camejalMongo',
-  migrate: 'safe'
+
   /***************************************************************************
   *                                                                          *
   * How and whether Sails will attempt to automatically rebuild the          *
@@ -30,5 +28,9 @@ module.exports.models = {
   *                                                                          *
   ***************************************************************************/
   // migrate: 'alter'
+
+  connection: 'camejalMySQL',
+  connection: 'camejalMongo',
+  migrate: 'safe'
 
 };

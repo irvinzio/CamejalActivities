@@ -5,7 +5,7 @@
  * compiled and linked from your views and static HTML files.
  *
  * (Note that you can take advantage of Grunt-style wildcard/glob/splat expressions
- * for matching multiple files.)
+ * for matching multiple files, and ! in front of an expression to ignore files.)
  *
  * For more information see:
  *   https://github.com/balderdashy/sails-docs/blob/master/anatomy/myApp/tasks/pipeline.js.md
@@ -17,8 +17,6 @@
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
-  'bower_components/bootstrap/dist/css/bootstrap.css',
-  'bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css',
   'styles/**/*.css'
 ];
 
@@ -26,13 +24,7 @@ var cssFilesToInject = [
 // Client-side javascript files to inject in order
 // (uses Grunt-style wildcard/glob/splat expressions)
 var jsFilesToInject = [
-  'js/dependencies/sails.io.js',
-  '/bower_components/jquery/dist/jquery.js',
-  '/bower_components/jquery-ui/jquery-ui.min.js',
-  '/bower_components/angular/angular.js',
-  '/bower_components/angular-route/angular-route.js',
-  '/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-  '/bower_components/bootstrap/dist/js/bootstrap.js',
+
   // Load sails.io before everything else
   'js/dependencies/sails.io.js',
 
@@ -71,12 +63,24 @@ var tmpPath = '.tmp/public/';
 // (i.e. where the other Grunt tasks spit them out, or in some cases, where
 // they reside in the first place)
 module.exports.cssFilesToInject = cssFilesToInject.map(function(cssPath) {
+  // If we're ignoring the file, make sure the ! is at the beginning of the path
+  if (cssPath[0] === '!') {
+    return require('path').join('!.tmp/public/', cssPath.substr(1));
+  }
   return require('path').join('.tmp/public/', cssPath);
 });
 module.exports.jsFilesToInject = jsFilesToInject.map(function(jsPath) {
+  // If we're ignoring the file, make sure the ! is at the beginning of the path
+  if (jsPath[0] === '!') {
+    return require('path').join('!.tmp/public/', jsPath.substr(1));
+  }
   return require('path').join('.tmp/public/', jsPath);
 });
 module.exports.templateFilesToInject = templateFilesToInject.map(function(tplPath) {
+  // If we're ignoring the file, make sure the ! is at the beginning of the path
+  if (tplPath[0] === '!') {
+    return require('path').join('!assets/', tplPath.substr(1));
+  }
   return require('path').join('assets/',tplPath);
 });
 

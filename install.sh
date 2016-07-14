@@ -1,7 +1,7 @@
 #sudo apt-get update
 #sudo apt-get upgrade -y
 sudo apt-get install curl -y
-curl --silent --location https://deb.nodesource.com/setup_5.x | sudo bash -
+curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
 sudo apt-get install nodejs -y
 #Step 1:  Import the MongoDB public key 
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
@@ -12,8 +12,9 @@ sudo apt-get update
 #Step 4: Install the last stable MongoDB version and all the necessary packages on our system
 sudo apt-get install mongodb-org -y
 sudo apt-get install git -y
+sudo npm -g install express --save
 sudo npm -g install sails --save
-sudo npm install express --save
+npm install -g bower
 #install mysql without prompt (not tested)
 export DEBIAN_FRONTEND=noninteractive
 sudo -E apt-get -q -y install mysql-server
