@@ -1,0 +1,24 @@
+<form name="myForm">
+      <div class="control-group" ng-class="{error: myForm.name.$invalid && !myForm.name.$pristine}">
+        <input class="form-control" type="text" name="nombres" ng-model="vm.formData.nombres" required placeholder="Nombres">
+        <span ng-show="myForm.name.$error.required && !myForm.name.$pristine" class="help-inline">
+            Required {{myForm.name.$pristine}}</span>
+      </div>        
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <input class="form-control" type="text" name="apellido_materno" ng-model="vm.formData.apellido_materno" required placeholder="Apellido Materno">
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <input class="form-control" type="text" name="apellido_paterno" ng-model="vm.formData.apellido_paterno" required placeholder="Apellido Paterno">
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+      <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+        <select class="form-control" name="cargo" ng-options="cargo as cargo.tipo for cargo in vm.cargos track by cargo.id"
+                              ng-model="vm.formData.cargo_id" required>
+        </select>
+        <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+            Required  {{myForm.name.$pristine}}</span>
+      </div>
+</form>

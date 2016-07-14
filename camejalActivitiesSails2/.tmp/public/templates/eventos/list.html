@@ -1,0 +1,45 @@
+<div class="panel panel-default" ng-controller="eventosCtrl">
+  <!--Alerts to display-->
+    <div ng-include="'templates/alerts.html'"></div> 
+  <!-- Default panel contents -->
+    <div class="panel-heading">
+        Eventos 
+        <button type="button" class="btn btn-primary text-rigth" data-toggle="modal" data-target=".addModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+        <input class="form-control" ng-model="search" type="text" placeholder="Filtar" > 
+    </div>
+    <div class="well col-md-6" ng-repeat="evento in vm.eventos | filter:search">
+        <p class="text-right">
+            <a href="#eventos" ng-click="vm.confirmationModal(evento)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            <a href="#eventos" ng-click="vm.updateData(evento)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        </p>
+        <p>
+            <strong>Nombres</strong> <span >{{evento.nombre}}</span>
+        </p>
+        <p>
+            <strong>Tema</strong> <span >{{evento.tema}}</span>
+        </p>
+        <p>
+            <strong>Fecha</strong> <span >{{evento.fecha.slice(0, 10)}}</span>
+        </p>
+        <p>
+            <strong>No. Asistentes</strong> <span >{{evento.numero_asistentes}}</span>
+        </p>
+        <p>
+            <strong>Institucion</strong> <span >{{evento.institucion_id.nombre}}</span>
+        </p>
+        <p>
+            <strong>Funcionario</strong> <span >{{evento.funcionario_id.nombres}}</span>
+        </p>
+        <p>
+            <strong>Participacion</strong> <span >{{evento.participacion_id.tipo}}</span>
+        </p>
+        <p>
+            <strong>Tipo de evento</strong> <span >{{evento.tipo_evento_id.tipo}}</span>
+        </p>
+        <p>
+            <strong>Ciudad</strong> <span >{{evento.ciudad_id.nombre}}</span>
+        </p>
+    </div>
+    <div ng-include="'templates/newModal.html'"></div> 
+    <div ng-include="'templates/editModal.html'"></div> 
+</div> 

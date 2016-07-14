@@ -1,0 +1,7 @@
+<form name="myForm">
+      <div class="control-group" ng-class="{error: myForm.name.$invalid && !myForm.name.$pristine}">
+        <input class="form-control" type="text" name="tipo" ng-model="vm.formData.tipo" required placeholder="Tipo de evento">
+        <span ng-show="myForm.name.$error.required && !myForm.name.$pristine" class="help-inline">
+            Required {{myForm.name.$pristine}}</span>
+      </div>        
+</form>

@@ -1,0 +1,29 @@
+<div class="panel panel-default" ng-controller="conveniosCtrl">
+  <!--Alerts to display-->
+    <div ng-include="'templates/alerts.html'"></div> 
+  <!-- Default panel contents -->
+    <div class="panel-heading">
+        Convenios 
+        <button type="button" class="btn btn-primary text-rigth" data-toggle="modal" data-target=".addModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+        <input class="form-control" ng-model="search" type="text" placeholder="Filtar" > 
+    </div>
+    <div class="well col-md-6" ng-repeat="convenio in vm.convenios | filter:search">
+        <p class="text-right">
+            <a href="#convenios" ng-click="vm.confirmationModal(convenio)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            <a href="#convenios" ng-click="vm.updateData(convenio)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        </p>
+        <p>
+            <strong>Nombres</strong> <span >{{convenio.nombre}}</span>
+        </p>
+        <p>
+            <strong>Fecha</strong> <span >{{convenio.fecha.slice(0, 10)}}</span>
+        </p>
+        <p>
+            <strong>Autoridad</strong> <span >{{convenio.autoridad}}</span>
+        </p>
+        <p>
+            <strong>Institucion</strong> <span >{{convenio.institucion_id.nombre}}</span>
+        </p>
+    </div>
+    <div ng-include="'templates/commonModals.html'"></div> 
+</div> 

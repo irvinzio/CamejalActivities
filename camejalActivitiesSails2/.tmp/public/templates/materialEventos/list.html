@@ -1,0 +1,23 @@
+
+<div class="panel panel-default" ng-controller="materialEventoCtrl">
+  <!--Alerts to display-->
+    <div ng-include="'templates/alerts.html'"></div> 
+  <!-- Default panel contents -->
+  <div class="panel-heading">Material Didactico por Evento 
+        <button type="button" class="btn btn-primary text-rigth" data-toggle="modal" data-target=".addModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+    </div>
+   <div class="well col-md-6" ng-repeat="material_evento in vm.materialEvento | orderBy:predicate:reverse | filter:search">
+        <p class="text-right">
+            <a href="#materialEventos" ng-click="vm.confirmationModal(material_evento)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            <a href="#materialEventos" ng-click="vm.updateData(material_evento)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        </p>
+        <p>
+            <strong>Evento</strong> <span > {{material_evento.evento_id.nombre}}</span>
+        </p>
+        <p>
+          <li>{{material_evento.material_didactico_id.tipo}}  {{material_evento.cantidad}}</li>
+        </p>
+    </div>
+   <div ng-include="'templates/newModal.html'"></div> 
+    <div ng-include="'templates/editModal.html'"></div>
+</div>

@@ -1,0 +1,32 @@
+
+<div class="panel panel-default" ng-controller="institucionesCtrl">
+    <!--Alerts to display-->
+    <div ng-include="'templates/alerts.html'"></div> 
+  <!-- Default panel contents -->
+  <div class="panel-heading">Instituciones 
+        <button type="button" class="btn btn-primary text-rigth" data-toggle="modal" data-target=".addModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+    </div>
+
+  <!-- Table -->
+  <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><a href="" ng-click="vm.order('nombre')" >Instituciones</a></th>
+                <th></th>   
+                <th></th>  
+            </tr>
+            <tr >
+                <td><input class="form-control"ng-model="search" type="text" placeholder="Filter by" ></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="institucion in vm.instituciones | orderBy:predicate:reverse | filter:search">
+                <td>{{institucion.nombre}}</td>
+                <td><a href="#instituciones" ng-click="vm.confirmationModal(institucion)" title="eliminar"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                <td><a href="#instituciones" ng-click="vm.updateData(institucion)" title="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+            </tr>               
+        </tbody>
+   </table>
+   <div ng-include="'templates/newModal.html'"></div> 
+    <div ng-include="'templates/editModal.html'"></div>
+</div>
