@@ -16,6 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- create 'mydb' database
+--
+
+DROP DATABASE IF EXISTS mydb; CREATE DATABASE mydb; USE mydb;
+
+
+--
 -- Table structure for table `cargo`
 --
 
